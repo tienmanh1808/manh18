@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Form Teacher Add</title> 
+	  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+	  integrity= "sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<style type="text/css">
+	.inline{
+		display : inline;
+	}
+</style>
+</head>
+<body>
+<div class="container">
+		<h2>Teacher Directory</h2>
+		<hr>
+		<p class="h4 mb-4">Save Teacher</p>
+	<form action="#" th:action="@{/view/save}" th:object="${student}"
+		method="POST">
+		<input type="hidden" th:field="*{id}"
+		class="form-control mb-4 col-4" placeholder="ID" /> 
+		<input type="text" th:field="*{firstName}" 
+		class="form-control mb-4 col-4" placeholder="First name" />
+		<input type="text" th:field="*{lastName}" 
+		class="form-control mb-4 col-4" placeholder="Last name" />
+		<input type="text" th:field="*{email}" 
+		class="form-control mb-4 col-4" placeholder="Email" />
+		
+					<div class="form-group">
+	                    <label class="control-label inline">Courses: </label>
+	                    <div class="col-lg-10">
+							<div class="inline" th:each="course : ${student.courses}">
+								<span th:text="${course.course.tile}" /> - <span th:text="${course.course.shortDescription}" /> ;
+							</div>
+	                    </div>
+	                </div>
+	                <div class="form-group">
+	                    <div class="col-lg-offset-2 mb-4 ">
+							<div class="input-group">
+								<select name="courseId" class="form-control col-4">
+									<option th:value=0 >--------</option>
+									<option th:each="course : ${courses}" 
+										th:value="${course.id}" 
+										th:text="${course.shortDescription}">Course</option>
+								</select>
+								<!-- <span class="input-group-btn">
+									<button type="submit" class="btn btn-default">Add course</button>
+								</span> -->
+							</div>
+	                    </div>
+                	</div>
+
+		<button type="submit" class="btn btn-primary">Save</button>
+	</form>
+	</div>
+</body>
+</html>

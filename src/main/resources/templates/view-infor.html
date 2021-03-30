@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Student Directory</title>
+<link type="text/css" rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/style.css">
+	  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+	  integrity= "sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+</head>
+<body>
+	<div class="container"> 
+			<h2>List Student</h2>
+		 
+		<div id="content">
+			<!-- Add new button - Add New Customer -->
+			
+			 <a th:href="@{/view/showFormAdd}" 
+				class = "btn btn-primary btn-sm mb-3" >Add Student</a>
+			
+			<!-- Add your html table here -->
+			<table class="table table-bordered table-striped">
+				<thead class="thead-dark">
+					<tr>
+						<th>Họ</th>
+						<th>Tên</th>
+						<th>Email</th>
+						<th>Môn học</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody> 
+						<tr th:each="tempStudent : ${students}" >
+							<td th:text=${tempStudent.firstName}/>
+							<td th:text=${tempStudent.lastName}/>
+							<td th:text=${tempStudent.email}/>
+							<td>
+				    			<span th:each="course,iterStat : ${tempStudent.courses}">
+				    				<span th:text="${course.course.shortDescription}"/><th:block th:if="${!iterStat.last}">,</th:block>
+				    			</span>
+				    		</td>
+							<td>
+								<a th:href="@{/view/showFormUpdate(theId=${tempStudent.id})}" 
+									class="btn btn-info btn-sm">
+									Update
+								</a>
+								|
+								<a th:href="@{/view/delete(theId=${tempStudent.id})}"  class="btn btn-info btn-sm" 
+								onclick="if (!(confirm('Are you sure want delete this Student '))) return false">
+									Delete
+								</a>
+							</td>
+						</tr> 
+				</tbody>
+			</table>
+		</div>
+	</div> 
+</body>
+</html>
